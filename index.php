@@ -98,10 +98,10 @@ if(!empty($_COOKIE['super_value'])) {
       $sth = $db->prepare("SELECT * FROM application6 WHERE id = ?");
       $sth->execute(array($user_id));
       $user_data = ($sth->fetchAll(PDO::FETCH_ASSOC))['0'];
-
-      foreach ($user_data as $key=>$val){
-        $values[$key] = $val;
-      }
+      if (is_array($values) || is_object($values)){
+      	foreach ($user_data as $key=>$val){
+       	$values[$key] = $val;
+      }}
       $values['super'] = [];
       $super_value = unserialize($_COOKIE['super_value']);
         foreach ($super_value as $s) {
